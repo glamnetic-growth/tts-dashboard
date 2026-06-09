@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0069)file:///Users/estherhwang/Downloads/glamnetic_tts_dashboard_v2_7.html -->
+<!-- saved from url=(0069)file:///Users/estherhwang/Downloads/glamnetic_tts_dashboard_v2_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1077,7 +1077,7 @@
     </tr></tbody>
       </table>
     </div>
-    <div class="pagination" id="productPagination"><span>1–12 of 20 listings</span><div class="page-btns"><button class="page-btn" onclick="goPage(0)" disabled="">← Prev</button><button class="page-btn active" onclick="goPage(1)">1</button><button class="page-btn " onclick="goPage(2)">2</button><button class="page-btn" onclick="goPage(2)">Next →</button></div></div>
+    <div class="pagination" id="productPagination"><span>1-12 of 20 listings</span><div class="page-btns"><button class="page-btn" onclick="goPage(0)" disabled="">&lt;- Prev</button><button class="page-btn active" onclick="goPage(1)">1</button><button class="page-btn " onclick="goPage(2)">2</button><button class="page-btn" onclick="goPage(2)">Next -&gt;</button></div></div>
   </div>
 
   <div id="ai-panel-products" class="ai-panel">
@@ -1564,7 +1564,7 @@ function initCharts() {
   charts.affVsSeller = new Chart(document.getElementById('affVsSeller'), {
     type:'bar',
     data:{
-      labels: productData.slice(0,10).map(p=>p.name.substring(0,18)+'…'),
+      labels: productData.slice(0,10).map(p=>p.name.substring(0,18)+'...'),
       datasets:[
         {label:'Affiliate GMV', data:productData.slice(0,10).map(p=>p.affLive+p.affVideo), backgroundColor:C.affVideo, borderRadius:3},
         {label:'Seller GMV', data:productData.slice(0,10).map(p=>p.selLive+p.selCard), backgroundColor:C.selCard, borderRadius:3},
@@ -1712,13 +1712,13 @@ function renderProductTable() {
   // Pagination
   const total = sorted.length;
   const totalPages = Math.ceil(total / PAGE_SIZE);
-  let pagHtml = `<span>${start+1}–${Math.min(start+PAGE_SIZE, total)} of ${total} listings</span>`;
+  let pagHtml = `<span>${start+1}-${Math.min(start+PAGE_SIZE, total)} of ${total} listings</span>`;
   pagHtml += `<div class="page-btns">`;
-  pagHtml += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>← Prev</button>`;
+  pagHtml += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}><- Prev</button>`;
   for (let i=1; i<=totalPages; i++) {
     pagHtml += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
   }
-  pagHtml += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Next →</button>`;
+  pagHtml += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Next -></button>`;
   pagHtml += `</div>`;
   document.getElementById('productPagination').innerHTML = pagHtml;
 }
@@ -1783,10 +1783,10 @@ async function runAIInsight(section) {
   const panelId = 'ai-panel-' + section;
   const panel = document.getElementById(panelId);
   panel.classList.add('open');
-  panel.innerHTML = '<p class="ai-loading">✦ Analyzing your TikTok Shop data with AI...</p>';
+  panel.innerHTML = '<p class="ai-loading">* Analyzing your TikTok Shop data with AI...</p>';
 
   const contextMap = {
-    global: `You are a TikTok Shop e-commerce expert analyst. Analyze this Glamnetic TikTok Shop data from Jan–May 2026:
+    global: `You are a TikTok Shop e-commerce expert analyst. Analyze this Glamnetic TikTok Shop data from Jan-May 2026:
 
 MONTHLY DATA:
 - Jan: GMV $580K, Impressions 34.9M, GPM $0.0166, AffLive $113K, AffVideo $161K, SellerLive $37K, Orders 27.9K, Refunds $35K
@@ -1795,13 +1795,13 @@ MONTHLY DATA:
 - Apr: GMV $559K, Impressions 29.8M, GPM $0.0188, AffLive $86K, AffVideo $200K, SellerLive $12K, Orders 25.1K, Refunds $26K
 - May: GMV $424K, Impressions 24.3M, GPM $0.0175, AffLive $72K, AffVideo $131K, SellerLive $10K, Orders 21.5K, Refunds $24K
 
-GPM = GMV ÷ Impressions (TikTok Shop's key efficiency metric).
+GPM = GMV / Impressions (TikTok Shop's key efficiency metric).
 
 The team is LOSING MONEY compared to prior months. Seller LIVE GMV collapsed from $37K to $10K. 
 
 Provide 3-5 specific, actionable insights about: (1) why GPM is fluctuating, (2) what's driving the GMV decline from Jan to May, (3) the top 2-3 things to fix RIGHT NOW. Be specific, direct, and use the data. Format as short paragraphs with bold key findings.`,
 
-    products: `You are a TikTok Shop product optimization expert. Analyze this Glamnetic product performance data (Jan–May 2026 combined):
+    products: `You are a TikTok Shop product optimization expert. Analyze this Glamnetic product performance data (Jan-May 2026 combined):
 
 TOP PRODUCTS (by GMV):
 1. Short Oval - GMV $283K, GPM $0.0216, Aff% 55%
@@ -1816,14 +1816,14 @@ TOP PRODUCTS (by GMV):
 
 Identify: (1) which listings to scale aggressively, (2) which to optimize or pause, (3) patterns in what makes a high-GPM listing for Glamnetic, (4) the affiliate percentage relationship to GPM. Be specific and data-driven.`,
 
-    channels: `You are a TikTok Shop channel strategy expert. Analyze Glamnetic's channel mix (Jan–May 2026):
+    channels: `You are a TikTok Shop channel strategy expert. Analyze Glamnetic's channel mix (Jan-May 2026):
 
 CHANNEL TOTALS (5 months):
-- Affiliate LIVE GMV: $462K (30.7%) — declining Jan→May
-- Affiliate Video GMV: $603K (40.0%) — highest volume, grew through April
-- Seller LIVE GMV: $99K (6.5%) — collapsed from $37K→$10K (Jan→May), -74%
-- Seller Video GMV: $33K (2.2%) — low, flat
-- Seller Product Card GMV: $393K (26.1%) — stable, slight growth
+- Affiliate LIVE GMV: $462K (30.7%) -- declining Jan->May
+- Affiliate Video GMV: $603K (40.0%) -- highest volume, grew through April
+- Seller LIVE GMV: $99K (6.5%) -- collapsed from $37K->$10K (Jan->May), -74%
+- Seller Video GMV: $33K (2.2%) -- low, flat
+- Seller Product Card GMV: $393K (26.1%) -- stable, slight growth
 
 The team has been LOSING MONEY. Seller LIVE investment is declining sharply.
 
@@ -1851,9 +1851,9 @@ Provide specific channel strategy recommendations: (1) where to focus effort giv
       .map(p => '<p>' + p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') + '</p>')
       .join('');
 
-    panel.innerHTML = '<div style="font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px;">✦ AI Analysis</div>' + formatted;
+    panel.innerHTML = '<div style="font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px;">* AI Analysis</div>' + formatted;
   } catch(e) {
-    panel.innerHTML = `<p style="color:var(--text-muted);">AI analysis unavailable in this environment. Key findings: Seller LIVE GMV declined 74% Jan–May, affiliate video is your strongest channel at 40% of GMV, and GPM varies from $0.0119 (x Glamzilla - needs optimization) to $0.0306 (Super Short Icons - scale this).</p>`;
+    panel.innerHTML = `<p style="color:var(--text-muted);">AI analysis unavailable in this environment. Key findings: Seller LIVE GMV declined 74% Jan-May, affiliate video is your strongest channel at 40% of GMV, and GPM varies from $0.0119 (x Glamzilla - needs optimization) to $0.0306 (Super Short Icons - scale this).</p>`;
   }
 }
 
