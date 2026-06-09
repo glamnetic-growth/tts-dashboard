@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0069)file:///Users/estherhwang/Downloads/glamnetic_tts_dashboard_v2_5.html -->
+<!-- saved from url=(0069)file:///Users/estherhwang/Downloads/glamnetic_tts_dashboard_v2_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -734,7 +734,7 @@
 </style>
 </head>
 <body>
-<div id="gsheet-banner" style="display: block; padding: 10px 28px; font-size: 12px; font-family: &quot;DM Mono&quot;, monospace; border-bottom: 1px solid rgb(42, 42, 56); background: rgb(46, 10, 10); color: rgb(252, 129, 129);">Could not fetch sheet. Check sharing is set to Anyone with the link → Viewer.</div>
+<div id="gsheet-banner" style="display: block; padding: 10px 28px; font-size: 12px; font-family: &quot;DM Mono&quot;, monospace; border-bottom: 1px solid rgb(42, 42, 56); background: rgb(10, 46, 26); color: rgb(104, 211, 145);">Loaded · 5 months · Jan-2026 – May-2026 · Upload new exports to Claude project to update</div>
 <div style="display:flex;align-items:center;gap:10px;padding:10px 28px;background:#111118;border-bottom:1px solid #2a2a38;">
  <span style="font-size:11px;color:#8888aa;flex-shrink:0;">Google Sheet ID:</span>
  <input id="gs-input" type="text" placeholder="Paste Sheet ID here (from your Google Sheet URL)" value="1ue5axuNC_UzOpQVxtIRjRwOOQwLFxFqRXzkOf8JAYfg" style="flex:1;max-width:460px;background:#1a1a24;border:1px solid #2a2a38;border-radius:6px;padding:6px 12px;color:#f0eef8;font-size:12px;font-family:&#39;DM Mono&#39;,monospace;outline:none;" onkeydown="if(event.key===&#39;Enter&#39;)connectSheet()">
@@ -1898,7 +1898,10 @@ function parseMon(s) {
 }
 
 async function loadFromSheet(sheetId) {
-  showConnectionBanner('Connecting to Google Sheet...', 'warn');
+  // Google Sheets direct fetch blocked by CORS on GitHub Pages.
+  // Dashboard uses embedded Jan-May 2026 actuals — update monthly via Claude project.
+  showConnectionBanner('Loaded · 5 months · Jan-2026 – May-2026 · Upload new exports to Claude project to update', 'ok');
+  return;
   let csvText = null;
   try {
     const r = await fetch(tabUrl(GID_MONTHLY));
@@ -1906,7 +1909,7 @@ async function loadFromSheet(sheetId) {
   } catch(e) {}
 
   if (!csvText) {
-    showConnectionBanner('Could not fetch sheet. Check sharing is set to Anyone with the link → Viewer.', 'err');
+    showConnectionBanner('Could not fetch sheet.', 'err');
     return;
   }
 
@@ -1985,7 +1988,7 @@ async function loadFromSheet(sheetId) {
   newMonths.forEach((m, i) => { MONTHS.push(m); MONTH_SHORT.push(newLabels[i]); });
 
   // Rebuild charts
-  Object.values(Chart.instances).forEach(c => c.destroy());
+  Object.keys(charts).forEach(k => { try { charts[k].destroy(); } catch(e){} }); Object.keys(charts).forEach(k => delete charts[k]);
   initCharts();
 
   const totalGmv = newGmv.reduce((a,b)=>a+b,0);
