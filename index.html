@@ -1373,7 +1373,7 @@ function initCharts() {
       datasets:[{
         label:'Products',
         data: productData.map(p=>({x:p.imp, y:p.gpm, label:p.name})),
-        backgroundColor: productData.map(p => p.gpm > 0.02 ? 'rgba(104,211,145,0.7)' : p.gpm > 0.015 ? 'rgba(246,173,85,0.7)' : 'rgba(252,129,129,0.7)'),
+        backgroundColor: productData.map(p => p.gpm > 20 ? 'rgba(104,211,145,0.7)' : p.gpm > 15 ? 'rgba(246,173,85,0.7)' : 'rgba(252,129,129,0.7)'),
         pointRadius: productData.map(p => Math.max(5, Math.sqrt(p.gmv/5000))),
         pointHoverRadius: 8,
       }]
