@@ -1526,7 +1526,7 @@ function renderProductTable() {
 
   const tbody = document.getElementById('productTbody');
   tbody.innerHTML = pageRows.map(p => {
-    const gpmClass = p.gpm > 0.02 ? 'gpm-high' : p.gpm > 0.015 ? 'gpm-mid' : 'gpm-low';
+    const gpmClass = p.gpm > 20 ? 'gpm-high' : p.gpm > 15 ? 'gpm-mid' : 'gpm-low';
     return `<tr>
       <td><div class="product-name" title="${p.name}">${p.name}</div></td>
       <td class="mono">$${p.gmv.toLocaleString()}</td>
